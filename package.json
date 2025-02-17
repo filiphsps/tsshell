@@ -1,5 +1,5 @@
 {
-    "name": "-",
+    "name": "tsshell",
     "module": "index.ts",
     "type": "module",
     "prettier": "@nordcom/prettier",
@@ -8,11 +8,11 @@
         "lint": "prettier --check ./src/"
     },
     "devDependencies": {
-        "@nordcom/prettier": "^0.1.1",
-        "@types/bun": "latest",
-        "prettier": "^3.5.1"
+        "@nordcom/prettier": "0.1.1",
+        "@types/bun": "1.2.2",
+        "prettier": "3.5.1"
     },
     "peerDependencies": {
-        "typescript": "^5.0.0"
+        "typescript": "5.7.3"
     }
 }
