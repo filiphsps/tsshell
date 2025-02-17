@@ -1,33 +1,20 @@
 import { createInterface } from 'node:readline/promises';
 
-import { commands } from './commands';
+import { executeCommand } from './commands';
 import { parseInput } from './parse-input';
 
-const HOME = process.env.HOME;
-const PATH = process.env.PATH;
+const HOME = process.env.HOME ?? '';
+const PATH = process.env.PATH ?? '';
+const PATHS = PATH.split(':');
+const PROMPT = process.env.PROMPT ?? process.env.PS1 ?? '$';
 
 let workingDirectory = process.cwd();
 
 const rl = createInterface({
     input: process.stdin,
     output: process.stdout,
-    prompt: '$ '
+    prompt: `${PROMPT} `
 });
-
-/**
- * Execute a command.
- * @param target - The command to execute
- * @param args - The arguments to pass to the command
- */
-async function executeCommand(target: string, args: string[]) {
-    const command = commands.find(({ name }) => name === target);
-    if (command) {
-        await command.run(target, args);
-        return;
-    }
-
-    console.log(`${target}: command not found`);
-}
 
 export const shell = async () => {
     rl.prompt(true);
