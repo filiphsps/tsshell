@@ -1,0 +1,17 @@
+{
+    "name": "-",
+    "module": "index.ts",
+    "type": "module",
+    "prettier": "@nordcom/prettier",
+    "scripts": {
+        "dev": "bun run index.ts"
+    },
+    "devDependencies": {
+        "@nordcom/prettier": "^0.1.1",
+        "@types/bun": "latest",
+        "prettier": "^3.5.1"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
+    }
+}
