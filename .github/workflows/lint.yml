@@ -1,0 +1,19 @@
+name: Linting
+on:
+    push:
+    pull_request:
+
+jobs:
+    lint:
+        name: 📃 Lint
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  submodules: 'recursive'
+
+            - name: 📦 Install
+              uses: ./.github/common/install
+
+            - name: 📃 Lint
+              run: bun run lint

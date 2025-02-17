@@ -4,7 +4,8 @@
     "type": "module",
     "prettier": "@nordcom/prettier",
     "scripts": {
-        "dev": "bun run index.ts"
+        "dev": "bun run index.ts",
+        "lint": "prettier --check ./src/"
     },
     "devDependencies": {
         "@nordcom/prettier": "^0.1.1",
