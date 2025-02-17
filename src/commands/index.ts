@@ -5,9 +5,10 @@ export interface Command {
 }
 
 import type { State } from '../state';
+import { cd } from './cd';
 import { exit } from './exit';
 import { help } from './help';
-export const commands: Command[] = [exit, help];
+export const commands: Command[] = [cd, exit, help].sort((a, b) => a.name.localeCompare(b.name));
 
 /**
  * Execute a command.

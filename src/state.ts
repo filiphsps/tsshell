@@ -1,6 +1,8 @@
 import type { Interface } from 'node:readline/promises';
 
 export interface State {
-    directory: string;
+    cwd: string;
+    setCwd: (path: string) => void;
+    stdout: NodeJS.WriteStream;
     readline: Interface;
 }

@@ -4,6 +4,6 @@ export const help: Command = {
     name: 'help',
     description: 'Show available commands',
     run: async (command, args, state) => {
-        console.log(commands.map((command) => `- ${command.name}: ${command.description}`).join('\n'));
+        state.stdout.write(`${commands.map((command) => `- ${command.name}: ${command.description}`).join('\n')}\n`);
     }
 };

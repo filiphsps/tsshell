@@ -4,10 +4,9 @@ import { executeCommand } from './commands';
 import { parseInput } from './parse-input';
 import { readdir } from 'node:fs/promises';
 import { execSync, spawn } from 'node:child_process';
+import type { State } from './state';
+import { PATHS } from './constants';
 
-const HOME = process.env.HOME ?? '';
-const PATH = process.env.PATH ?? '';
-const PATHS = PATH.split(':');
 const PROMPT = process.env.PROMPT ?? process.env.PS1 ?? '$';
 
 let workingDirectory = process.cwd();
@@ -22,14 +21,18 @@ export const shell = async () => {
     rl.prompt(true);
 
     rl.on('line', async (line) => {
+        let state: State = {
+            cwd: workingDirectory,
+            setCwd: (path) => {
+                workingDirectory = path;
+            },
+            stdout: process.stdout,
+            readline: rl
+        };
+
         const { command, args } = parseInput(line);
 
-        if (
-            await executeCommand(command, args, {
-                directory: workingDirectory,
-                readline: rl
-            })
-        ) {
+        if (await executeCommand(command, args, state)) {
             return rl.prompt();
         }
 
@@ -38,18 +41,19 @@ export const shell = async () => {
                 const executables = await readdir(path);
                 for (const executable of executables) {
                     if (executable === command) {
-                        const result = execSync(`${command} ${args.join(' ')}`, {
-                            cwd: workingDirectory
+                        // Don't use the parsed line here.
+                        const result = execSync(line, {
+                            cwd: state.cwd
                         }).toString();
 
-                        console.log(result);
+                        state.stdout.write(`${result}\n`);
                         return rl.prompt();
                     }
                 }
             } catch {}
         }
 
-        console.log(`${command}: command not found`);
+        state.stdout.write(`${command}: command not found\n`);
         rl.prompt();
     });
 };
