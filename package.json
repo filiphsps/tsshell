@@ -3,6 +3,7 @@
     "module": "index.ts",
     "type": "module",
     "prettier": "@nordcom/prettier",
+    "packageManager": "bun@1.2.0",
     "scripts": {
         "dev": "bun run index.ts",
         "lint": "prettier --check ./src/",
