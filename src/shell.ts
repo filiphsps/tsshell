@@ -43,7 +43,8 @@ export const shell = async () => {
                     if (executable === command) {
                         // Don't use the parsed line here.
                         const result = execSync(line, {
-                            cwd: state.cwd
+                            cwd: state.cwd,
+                            stdio: 'inherit'
                         }).toString();
 
                         state.stdout.write(`${result}\n`);
