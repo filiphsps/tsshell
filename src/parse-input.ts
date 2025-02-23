@@ -4,6 +4,7 @@
  * @returns The command and arguments
  */
 function parseInput(line: string): { command: string; args: string[] } {
+    // TODO: Rewrite this properly.
     const command = line.split(' ')[0] ?? '';
     let args: string[] = [];
 
@@ -35,6 +36,9 @@ function parseInput(line: string): { command: string; args: string[] } {
     if (current) {
         args.push(current);
     }
+
+    // FIXME: This is a hack to remove empty arguments.
+    args = args.filter((arg) => arg !== '');
 
     return {
         command,

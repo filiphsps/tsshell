@@ -1,0 +1,19 @@
+name: Testing
+on:
+    push:
+    pull_request:
+
+jobs:
+    test:
+        name: 🧪 Test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  submodules: 'recursive'
+
+            - name: 📦 Install
+              uses: ./.github/common/install
+
+            - name: 🧪 Test
+              run: bun run test
