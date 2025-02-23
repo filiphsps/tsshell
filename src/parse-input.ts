@@ -1,49 +1,59 @@
 /**
- * Parse the input line.
- * @param line - The line to parse
- * @returns The command and arguments
+ * Parse a command line string into command and arguments.
+ * Handles both single and double quotes, and normalizes spaces.
+ * @param line - The command line string to parse
+ * @returns Object containing the command and array of arguments
  */
-function parseInput(line: string): { command: string; args: string[] } {
-    // TODO: Rewrite this properly.
-    const command = line.split(' ')[0] ?? '';
-    let args: string[] = [];
-
-    let input = line.split(' ').slice(1) ?? [];
+export function parseInput(line: string): { command: string; args: string[] } {
+    const args: string[] = [];
     let current = '';
     let inQuotes = false;
-    let quoteType = '';
-    while (input.length > 0) {
-        const part = input.shift()!;
+    let quoteChar = '';
 
-        if (part.startsWith('"') || part.startsWith("'")) {
-            inQuotes = true;
-            quoteType = part[0];
-            current = part.slice(1);
-        } else if (inQuotes) {
-            if (part.endsWith(quoteType)) {
-                current += ' ' + part.slice(0, -1);
-                args.push(current);
-                current = '';
-                inQuotes = false;
-            } else {
-                current += ' ' + part;
-            }
-        } else {
-            args.push(part);
-        }
+    // Handle empty input
+    if (!line.trim()) {
+        return { command: '', args: [] };
     }
 
+    // Iterate through each character in the input
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+
+        // Handle quotes (both single and double)
+        if ((char === '"' || char === "'") && !inQuotes) {
+            inQuotes = true;
+            quoteChar = char;
+            continue;
+        }
+        if (char === quoteChar && inQuotes) {
+            inQuotes = false;
+            quoteChar = '';
+            continue;
+        }
+
+        // Handle spaces
+        if (char === ' ' && !inQuotes) {
+            if (current) {
+                args.push(current);
+                current = '';
+            }
+            continue;
+        }
+
+        // Add character to current argument
+        current += char;
+    }
+
+    // Add the last argument if there is one
     if (current) {
         args.push(current);
     }
 
-    // FIXME: This is a hack to remove empty arguments.
-    args = args.filter((arg) => arg !== '');
+    // Extract command and remaining arguments
+    const command = args.shift() || '';
 
     return {
         command,
-        args
+        args: args
     };
 }
-
-export { parseInput };

@@ -26,7 +26,7 @@ describe('parse-input', () => {
         });
     });
 
-    it.skip('should handle quoted arguments', () => {
+    it('should handle quoted arguments', () => {
         const input = 'cp "file1.txt" "file2.txt"';
         expect(parseInput(input)).toEqual({
             command: 'cp',
@@ -34,7 +34,7 @@ describe('parse-input', () => {
         });
     });
 
-    it.skip('should handle single quoted arguments', () => {
+    it('should handle single quoted arguments', () => {
         const input = "cp 'file1.txt' 'file2.txt'";
         expect(parseInput(input)).toEqual({
             command: 'cp',
