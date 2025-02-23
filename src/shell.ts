@@ -2,7 +2,7 @@ import { createInterface } from 'node:readline/promises';
 
 import { executeCommand } from './commands';
 import { parseInput } from './parse-input';
-import { readdir } from 'node:fs/promises';
+import { readdir, exists } from 'node:fs/promises';
 import { execSync, spawn } from 'node:child_process';
 import type { State } from './state';
 import { PATHS } from './constants';
@@ -33,11 +33,15 @@ export const shell = async () => {
         const { command, args } = parseInput(line);
 
         if (await executeCommand(command, args, state)) {
-            return rl.prompt();
+            return rl.prompt(true);
         }
 
         for (const path of PATHS) {
             try {
+                if (!(await exists(path))) {
+                    continue;
+                }
+
                 const executables = await readdir(path);
                 for (const executable of executables) {
                     if (executable === command) {
@@ -45,13 +49,18 @@ export const shell = async () => {
                         const result = execSync(line, {
                             cwd: state.cwd,
                             stdio: 'inherit'
-                        }).toString();
+                        })?.toString();
 
-                        state.stdout.write(`${result}\n`);
-                        return rl.prompt();
+                        if (result) {
+                            state.stdout.write(`${result}\n`);
+                        }
+
+                        return rl.prompt(true);
                     }
                 }
-            } catch {}
+            } catch (error) {
+                console.error(error);
+            }
         }
 
         state.stdout.write(`${command}: command not found\n`);
