@@ -7,20 +7,26 @@ import { execSync, spawn } from 'node:child_process';
 import type { State } from './state';
 import { PATHS } from './constants';
 
-const PROMPT = process.env.PROMPT ?? process.env.PS1 ?? '$';
-
 let workingDirectory = process.cwd();
 
-const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: `${PROMPT} `
-});
+function createPrompt() {
+    return process.env.PROMPT ?? process.env.PS1 ?? '$';
+}
 
 export const shell = async () => {
+    const rl = createInterface({
+        input: process.stdin,
+        output: process.stdout,
+        prompt: `${createPrompt()} `
+    });
+
     rl.prompt(true);
 
     rl.on('line', async (line) => {
+        // Update the prompt.
+        // TODO: We should probably listen to changes and dynamically update the prompt.
+        rl.setPrompt(`${createPrompt()} `);
+
         let state: State = {
             cwd: workingDirectory,
             setCwd: (path) => {
