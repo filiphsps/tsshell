@@ -8,7 +8,8 @@ import type { State } from '../state';
 import { cd } from './cd';
 import { exit } from './exit';
 import { help } from './help';
-export const commands: Command[] = [cd, exit, help].sort((a, b) => a.name.localeCompare(b.name));
+import { exportCommand } from './export';
+export const commands: Command[] = [cd, exit, help, exportCommand].sort((a, b) => a.name.localeCompare(b.name));
 
 /**
  * Execute a command.
