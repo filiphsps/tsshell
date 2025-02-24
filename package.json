@@ -5,7 +5,7 @@
     "prettier": "@nordcom/prettier",
     "packageManager": "bun@1.2.0",
     "scripts": {
-        "dev": "bun run index.ts",
+        "dev": "bun --watch index.ts",
         "lint": "prettier --check ./src/",
         "test": "bun test"
     },
