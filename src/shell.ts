@@ -1,9 +1,9 @@
 import { createInterface } from 'node:readline/promises';
+import { execSync, spawn } from 'node:child_process';
+import { readdir, exists } from 'node:fs/promises';
 
 import { executeCommand } from './commands';
 import { parseInput } from './parse-input';
-import { readdir, exists } from 'node:fs/promises';
-import { execSync, spawn } from 'node:child_process';
 import type { State } from './state';
 import { PATHS } from './constants';
 
