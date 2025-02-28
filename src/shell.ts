@@ -52,13 +52,17 @@ export const shell = async () => {
                 for (const executable of executables) {
                     if (executable === command) {
                         // Don't use the parsed line here.
-                        const result = execSync(line, {
-                            cwd: state.cwd,
-                            stdio: 'inherit'
-                        })?.toString();
+                        try {
+                            const result = execSync(line, {
+                                cwd: state.cwd,
+                                stdio: 'inherit'
+                            })?.toString();
 
-                        if (result) {
-                            state.stdout.write(`${result}\n`);
+                            if (result) {
+                                state.stdout.write(`${result}\n`);
+                            }
+                        } catch (error) {
+                            console.error(error);
                         }
 
                         return rl.prompt(true);

@@ -1,3 +1,7 @@
 import { shell } from './src/shell';
 
-await shell();
+try {
+    await shell();
+} catch (error) {
+    console.error(error);
+}
