@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@nordcom/prettier": "0.1.1",
-        "@types/bun": "1.2.5",
+        "@types/bun": "1.2.6",
         "prettier": "3.5.3"
     },
     "peerDependencies": {
