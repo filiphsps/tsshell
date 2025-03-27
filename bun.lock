@@ -5,7 +5,7 @@
       "name": "-",
       "devDependencies": {
         "@nordcom/prettier": "0.1.1",
-        "@types/bun": "1.2.7",
+        "@types/bun": "1.2.8",
         "prettier": "3.5.3",
       },
       "peerDependencies": {
@@ -16,7 +16,7 @@
   "packages": {
     "@nordcom/prettier": ["@nordcom/prettier@0.1.1", "", {}, "sha512-kndtRQSvqSplbVxDl2l7sBmHMe0oLy45zQjgYemsXlJr1j7tx7H3uuHw5XuwhV5okFLk+Nz+w646AXgNYpPQ+w=="],
 
-    "@types/bun": ["@types/bun@1.2.7", "", { "dependencies": { "bun-types": "1.2.7" } }, "sha512-Xf/nkx1V03GvWEzWrYsOGB1VUvWVtU5p6jHalCxixhhfLgsJN59iT7CRvfBXyEBnYoGCa2orzWj6car/QfTjxw=="],
+    "@types/bun": ["@types/bun@1.2.8", "", { "dependencies": { "bun-types": "1.2.7" } }, "sha512-t8L1RvJVUghW5V+M/fL3Thbxcs0HwNsXsnTEBEfEVqGteiJToOlZ/fyOEaR1kZsNqnu+3XA4RI/qmnX4w6+S+w=="],
 
     "@types/node": ["@types/node@22.13.4", "", { "dependencies": { "undici-types": "~6.20.0" } }, "sha512-ywP2X0DYtX3y08eFVx5fNIw7/uIv8hYUKgXoK8oayJlLnKcRfEYCxWMVE1XagUdVtCJlZT1AU4LXEABW+L1Peg=="],
 
